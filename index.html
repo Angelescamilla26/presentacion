@@ -8,6 +8,8 @@
 <meta content="#12090d" name="theme-color"/>
 <title>Juanjo &amp; Ángel — Ideas en movimiento</title>
 <link href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%2312090d'/%3E%3Cpath d='M21 16v25c0 7-5 9-10 6M45 45V25m0 2c-15-12-21 27 0 15M34 13 26 51' fill='none' stroke='%23ff6262' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E" rel="icon" type="image/svg+xml"/>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
 <script>
         try {
             document.documentElement.dataset.theme =
@@ -32,6 +34,10 @@
             --ja-project-bg: #2b131d;
             --ja-font: "Inter", "Segoe UI", Arial, sans-serif;
             --ja-gutter: clamp(22px, 5.6vw, 88px);
+            --ja-blue: #4dabff;
+            --ja-blue-rgb: 77, 171, 255;
+            --ja-chivas-red: #d42e2e;
+            --ja-chivas-red-rgb: 212, 46, 46;
         }
 
         [data-theme="light"] {
@@ -46,6 +52,8 @@
             --ja-accent-ink: #fff;
             --ja-warm: #a43524;
             --ja-project-bg: #f6dce5;
+            --ja-blue: #0a66c2;
+            --ja-blue-rgb: 10, 102, 194;
         }
 
         *,
@@ -66,6 +74,15 @@
             font: 16px/1.65 var(--ja-font);
             -webkit-font-smoothing: antialiased;
         }
+
+        /* Bootstrap overrides */
+        body, h1, h2, h3, h4, h5, h6, p, a, button {
+            font-family: var(--ja-font) !important;
+        }
+        h1, h2, h3, h4, h5, h6 { margin: 0; }
+        a { color: inherit; text-decoration: none; }
+        button { border: none; background: none; }
+        img, svg { display: block; max-width: 100%; }
 
         a {
             color: inherit;
@@ -99,12 +116,6 @@
 
         button {
             cursor: pointer;
-        }
-
-        img,
-        svg {
-            display: block;
-            max-width: 100%;
         }
 
         ::selection {
@@ -697,6 +708,9 @@
             font-style: normal;
             margin-left: auto;
             color: var(--ja-accent);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .ja-tags {
@@ -1015,75 +1029,271 @@
         }
 
         .ja-football {
+            position: relative;
             background: var(--ja-surface);
+            overflow: hidden;
+            isolation: isolate;
+        }
+
+        .ja-football::before {
+            content: "";
+            position: absolute;
+            top: -60px;
+            right: -60px;
+            width: 220px;
+            height: 220px;
+            background: radial-gradient(circle, rgba(var(--ja-blue-rgb), 0.14), transparent 65%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .ja-football > * {
+            position: relative;
+            z-index: 1;
         }
 
         .ja-pitch {
-            height: 145px;
-            border: 1px solid var(--ja-line);
             position: relative;
+            height: 160px;
             margin-bottom: 25px;
+            border-radius: 10px;
             overflow: hidden;
+            background: linear-gradient(180deg, #0a1828 0%, #0e2438 55%, #0a1828 100%);
+            border: 1px solid rgba(var(--ja-blue-rgb), 0.32);
+            box-shadow:
+                inset 0 0 40px rgba(var(--ja-blue-rgb), 0.1),
+                0 0 22px rgba(var(--ja-blue-rgb), 0.14);
+            isolation: isolate;
         }
 
-        .ja-pitch::before {
-            content: "";
+        .ja-pitch-stripes {
             position: absolute;
-            top: 0;
-            left: 50%;
-            height: 100%;
-            width: 1px;
-            background: var(--ja-line);
+            inset: 0;
+            background: repeating-linear-gradient(
+                90deg,
+                rgba(var(--ja-chivas-red-rgb), 0.16) 0 16px,
+                rgba(255, 255, 255, 0.025) 16px 32px
+            );
+            pointer-events: none;
+            z-index: 0;
         }
 
-        .ja-pitch::after {
+        .ja-pitch-lines {
+            position: absolute;
+            inset: 8px;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .ja-pitch-halfway {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 1px;
+            background: rgba(255, 255, 255, 0.5);
+            box-shadow: 0 0 8px rgba(var(--ja-blue-rgb), 0.5);
+        }
+
+        .ja-pitch-center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 46px;
+            height: 46px;
+            transform: translate(-50%, -50%);
+            border: 1px solid rgba(255, 255, 255, 0.55);
+            border-radius: 50%;
+            box-shadow: 0 0 12px rgba(var(--ja-blue-rgb), 0.35);
+        }
+
+        .ja-pitch-center::after {
             content: "";
             position: absolute;
             top: 50%;
             left: 50%;
-            width: 55px;
-            height: 55px;
+            width: 4px;
+            height: 4px;
             transform: translate(-50%, -50%);
-            border: 1px solid var(--ja-line);
             border-radius: 50%;
+            background: #fff;
+            box-shadow: 0 0 10px rgba(var(--ja-blue-rgb), 1);
         }
 
-        .ja-pitch>div {
+        .ja-pitch-box {
             position: absolute;
-            top: 25%;
-            height: 50%;
+            top: 50%;
+            width: 40px;
+            height: 66px;
+            transform: translateY(-50%);
+            border: 1px solid rgba(255, 255, 255, 0.55);
+        }
+
+        .ja-pitch-box--left {
+            left: 0;
+            border-left: none;
+        }
+
+        .ja-pitch-box--right {
+            right: 0;
+            border-right: none;
+        }
+
+        .ja-pitch-goal {
+            position: absolute;
+            top: 50%;
+            width: 14px;
+            height: 34px;
+            transform: translateY(-50%);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .ja-pitch-goal--left {
             left: -1px;
-            width: 28%;
-            border: 1px solid var(--ja-line);
+            border-left: none;
         }
 
-        .ja-pitch>span {
+        .ja-pitch-goal--right {
+            right: -1px;
+            border-right: none;
+        }
+
+        .ja-pitch-number {
             position: absolute;
-            left: 10px;
+            left: 12px;
             bottom: 6px;
-            font: 600 44px/1 var(--ja-font);
-            color: var(--ja-accent);
+            font: 700 42px/1 var(--ja-font);
+            color: var(--ja-blue);
             letter-spacing: -0.08em;
+            text-shadow:
+                0 0 6px rgba(var(--ja-blue-rgb), 0.9),
+                0 0 18px rgba(var(--ja-blue-rgb), 0.5),
+                0 0 34px rgba(var(--ja-blue-rgb), 0.25);
+            z-index: 2;
+        }
+
+        .ja-pitch-ball {
+            position: absolute;
+            right: 16px;
+            top: 14px;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 35% 30%, #fff 20%, #d0d0d0 60%, #5a5a5a 100%);
+            box-shadow:
+                0 0 10px rgba(var(--ja-blue-rgb), 0.75),
+                0 0 22px rgba(var(--ja-blue-rgb), 0.4);
+            z-index: 2;
+        }
+
+        .ja-pitch-ball::after {
+            content: "";
+            position: absolute;
+            inset: 3px;
+            background: #1a1a1a;
+            clip-path: polygon(50% 0, 100% 38%, 82% 100%, 18% 100%, 0 38%);
+            opacity: 0.7;
+            border-radius: 2px;
         }
 
         .ja-fan {
             display: inline-flex;
             align-items: center;
-            gap: 9px;
-            margin-top: 25px;
+            gap: 10px;
+            margin-top: 22px;
+            padding: 7px 14px 7px 8px;
             font-size: 10px;
             color: var(--ja-ink);
+            border: 1px solid rgba(var(--ja-blue-rgb), 0.3);
+            border-radius: 30px;
+            background: rgba(var(--ja-blue-rgb), 0.05);
+            box-shadow:
+                inset 0 0 12px rgba(var(--ja-blue-rgb), 0.08),
+                0 0 16px rgba(var(--ja-blue-rgb), 0.12);
+            transition: border-color .3s, box-shadow .3s;
         }
 
-        .ja-fan i {
-            display: block;
-            width: 20px;
-            height: 20px;
-            border: 1px solid #ddd;
-            background: repeating-linear-gradient(90deg,
-                    #d53f45 0 4px,
-                    #f5eee6 4px 8px);
-            border-radius: 50%;
+        .ja-fan:hover {
+            border-color: rgba(var(--ja-blue-rgb), 0.6);
+            box-shadow:
+                inset 0 0 16px rgba(var(--ja-blue-rgb), 0.16),
+                0 0 26px rgba(var(--ja-blue-rgb), 0.28);
+        }
+
+        .ja-fan-crest {
+            width: 24px;
+            height: 24px;
+            flex-shrink: 0;
+            filter: drop-shadow(0 0 6px rgba(var(--ja-blue-rgb), 0.55));
+        }
+
+        .ja-fan-text {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.2;
+            gap: 1px;
+        }
+
+        .ja-fan-text strong {
+            font-weight: 600;
+            font-size: 10px;
+            letter-spacing: 0.02em;
+        }
+
+        .ja-fan-text small {
+            font: 9px/1.2 monospace;
+            color: var(--ja-blue);
+            letter-spacing: 0.1em;
+        }
+
+        @media (prefers-reduced-motion: no-preference) {
+            :root:not([data-effects="off"]) .ja-pitch-number {
+                animation: ja-blue-pulse 3.4s ease-in-out infinite;
+            }
+            :root:not([data-effects="off"]) .ja-pitch-ball {
+                animation: ja-blue-pulse-ball 2.6s ease-in-out infinite;
+            }
+            :root:not([data-effects="off"]) .ja-fan-crest {
+                animation: ja-blue-glow 3s ease-in-out infinite;
+            }
+        }
+
+        @keyframes ja-blue-pulse {
+            0%, 100% {
+                text-shadow:
+                    0 0 6px rgba(var(--ja-blue-rgb), 0.7),
+                    0 0 18px rgba(var(--ja-blue-rgb), 0.4),
+                    0 0 34px rgba(var(--ja-blue-rgb), 0.18);
+            }
+            50% {
+                text-shadow:
+                    0 0 10px rgba(var(--ja-blue-rgb), 1),
+                    0 0 26px rgba(var(--ja-blue-rgb), 0.7),
+                    0 0 48px rgba(var(--ja-blue-rgb), 0.35);
+            }
+        }
+
+        @keyframes ja-blue-pulse-ball {
+            0%, 100% {
+                box-shadow:
+                    0 0 8px rgba(var(--ja-blue-rgb), 0.6),
+                    0 0 18px rgba(var(--ja-blue-rgb), 0.3);
+            }
+            50% {
+                box-shadow:
+                    0 0 12px rgba(var(--ja-blue-rgb), 1),
+                    0 0 28px rgba(var(--ja-blue-rgb), 0.55),
+                    0 0 46px rgba(var(--ja-blue-rgb), 0.25);
+            }
+        }
+
+        @keyframes ja-blue-glow {
+            0%, 100% {
+                filter: drop-shadow(0 0 5px rgba(var(--ja-blue-rgb), 0.5));
+            }
+            50% {
+                filter: drop-shadow(0 0 10px rgba(var(--ja-blue-rgb), 0.9));
+            }
         }
 
         .ja-drawing {
@@ -1176,6 +1386,9 @@
             font-weight: 300;
             line-height: 1;
             color: var(--ja-accent);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .ja-footer {
@@ -1933,6 +2146,13 @@
             border-radius: 50%;
             color: var(--ja-accent);
             font-size: 23px;
+        }
+
+        .ja-choice-arrow i {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            line-height: 1;
         }
 
         .ja-person-choice[aria-selected="true"] {
@@ -2964,8 +3184,9 @@
             display: grid;
             grid-template-columns: 1fr 1fr 1fr;
             align-items: center;
-            gap: 14px;
-            padding: 28px 3px;
+            justify-items: center;
+            gap: 12px;
+            padding: 34px 6px 30px;
             isolation: isolate;
         }
 
@@ -2994,20 +3215,21 @@
             display: block;
             position: relative;
             min-width: 0;
+            width: 100%;
             padding: 7px;
             border: 1px solid rgba(var(--ja-light-rgb), .5);
             border-radius: 18px;
             background: var(--ja-surface);
             box-shadow: 0 24px 50px #00000025, 0 0 35px rgba(var(--ja-light-rgb), .13);
-            transform: rotate(-5deg);
+            transform: rotate(-4deg);
         }
 
         .ja-snapshot--vehicle {
-            transform: rotate(5deg) translateY(15px);
+            transform: rotate(3deg) translateY(14px);
         }
 
         .ja-snapshot--moto {
-            transform: rotate(-3deg) translateY(-10px);
+            transform: rotate(-2deg) translateY(-12px);
         }
 
         .ja-snapshot img {
@@ -3027,11 +3249,16 @@
             font: 600 9px/1.5 var(--ja-font);
             letter-spacing: .1em;
             color: var(--ja-ink);
+            text-align: left;
         }
 
         .ja-snapshot-label>span {
             color: var(--ja-accent);
             font-size: 17px;
+            line-height: 1;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .ja-snapshot:hover {
@@ -3434,9 +3661,9 @@
             }
 
             .ja-hero-photos {
-                width: min(470px, 100%);
+                width: min(520px, 100%);
                 margin-inline: auto;
-                gap: 12px;
+                gap: 10px;
                 padding: 24px 8px;
             }
 
@@ -3512,7 +3739,7 @@
             }
 
             .ja-hero-photos {
-                gap: 10px;
+                gap: 8px;
                 padding-inline: 3px;
             }
 
@@ -3607,15 +3834,15 @@
 
         
         .ja-snapshot {
-            transform: perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) rotate(-5deg)
+            transform: perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) rotate(-4deg)
         }
 
         .ja-snapshot--vehicle {
-            transform: perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) rotate(5deg) translateY(15px)
+            transform: perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) rotate(3deg) translateY(14px)
         }
 
         .ja-snapshot--moto {
-            transform: perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) rotate(-3deg) translateY(-10px)
+            transform: perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) rotate(-2deg) translateY(-12px)
         }
 
         
@@ -3986,6 +4213,181 @@
 
 .ja-profile-actions { display:flex; flex-wrap:wrap; align-items:center; gap:12px 24px; margin-top:24px; }
 .ja-profile-actions > .ja-text-link { color:var(--ja-accent); }
+
+/* ===== Arrows / icons helper ===== */
+.ja-arrow,
+.ja-arrow i,
+i.ja-arrow {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+    vertical-align: middle;
+}
+
+/* ===== NEON EFFECTS ===== */
+@keyframes ja-neon-pulse {
+    0%, 100% {
+        filter: drop-shadow(0 0 4px currentColor) drop-shadow(0 0 10px rgba(var(--ja-light-rgb), 0.55));
+    }
+    50% {
+        filter: drop-shadow(0 0 8px currentColor) drop-shadow(0 0 22px rgba(var(--ja-light-rgb), 0.85));
+    }
+}
+
+@keyframes ja-neon-border-pulse {
+    0%, 100% {
+        box-shadow:
+            0 0 4px rgba(var(--ja-light-rgb), 0.55),
+            0 0 14px rgba(var(--ja-light-rgb), 0.28),
+            0 0 32px rgba(var(--ja-light-rgb), 0.14),
+            inset 0 0 12px rgba(var(--ja-light-rgb), 0.08);
+    }
+    50% {
+        box-shadow:
+            0 0 8px rgba(var(--ja-light-rgb), 0.85),
+            0 0 26px rgba(var(--ja-light-rgb), 0.45),
+            0 0 60px rgba(var(--ja-light-rgb), 0.22),
+            inset 0 0 18px rgba(var(--ja-light-rgb), 0.12);
+    }
+}
+
+.ja-name,
+.ja-person-choice > strong > span,
+.ja-juanjo-monogram > span,
+.ja-button > span,
+.ja-choice-arrow,
+.ja-snapshot-label > span,
+.ja-interest-list i,
+.ja-future-arrow,
+.ja-github span[aria-hidden="true"],
+.ja-instagram span[aria-hidden="true"],
+.ja-text-link span[aria-hidden="true"] {
+    text-shadow:
+        0 0 4px currentColor,
+        0 0 10px rgba(var(--ja-light-rgb), 0.65);
+}
+
+.ja-name {
+    color: var(--ja-accent);
+    filter: drop-shadow(0 0 12px rgba(var(--ja-light-rgb), 0.45));
+}
+
+.ja-github,
+.ja-instagram,
+.ja-button,
+.ja-theme,
+.ja-motion,
+.ja-person-choice {
+    box-shadow:
+        0 0 4px rgba(var(--ja-light-rgb), 0.35),
+        0 0 14px rgba(var(--ja-light-rgb), 0.18),
+        inset 0 0 10px rgba(var(--ja-light-rgb), 0.05);
+}
+
+.ja-github:hover,
+.ja-instagram:hover,
+.ja-button:hover {
+    box-shadow:
+        0 0 6px rgba(var(--ja-light-rgb), 0.7),
+        0 0 22px rgba(var(--ja-light-rgb), 0.35),
+        0 0 48px rgba(var(--ja-light-rgb), 0.18),
+        inset 0 0 12px rgba(var(--ja-light-rgb), 0.08);
+}
+
+.ja-snapshot,
+.ja-profile,
+.ja-project,
+.ja-interest-primary,
+.ja-hobby-grid article,
+.ja-pending,
+.ja-person-choice {
+    box-shadow:
+        0 0 6px rgba(var(--ja-light-rgb), 0.16),
+        0 0 22px rgba(var(--ja-light-rgb), 0.09),
+        0 12px 40px #00000018;
+}
+
+.ja-person-choice[aria-selected="true"] {
+    box-shadow:
+        0 0 8px rgba(var(--ja-light-rgb), 0.55),
+        0 0 28px rgba(var(--ja-light-rgb), 0.28),
+        0 0 60px rgba(var(--ja-light-rgb), 0.14),
+        inset 0 0 22px rgba(var(--ja-light-rgb), 0.06);
+}
+
+.ja-achievements {
+    box-shadow:
+        0 -1px 0 rgba(var(--ja-light-rgb), 0.75),
+        0 1px 0 rgba(var(--ja-light-rgb), 0.75),
+        0 0 55px rgba(var(--ja-light-rgb), 0.16),
+        0 0 110px rgba(var(--ja-light-rgb), 0.08);
+}
+
+.ja-future-arrow {
+    filter: drop-shadow(0 0 14px rgba(var(--ja-light-rgb), 0.7));
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    :root:not([data-effects="off"]) .ja-name,
+    :root:not([data-effects="off"]) .ja-button > span,
+    :root:not([data-effects="off"]) .ja-choice-arrow,
+    :root:not([data-effects="off"]) .ja-interest-list i,
+    :root:not([data-effects="off"]) .ja-snapshot-label > span,
+    :root:not([data-effects="off"]) .ja-future-arrow {
+        animation: ja-neon-pulse 3.2s ease-in-out infinite;
+    }
+
+    :root:not([data-effects="off"]) .ja-github,
+    :root:not([data-effects="off"]) .ja-instagram,
+    :root:not([data-effects="off"]) .ja-button {
+        animation: ja-neon-border-pulse 4.5s ease-in-out infinite;
+    }
+
+    :root:not([data-effects="off"]) .ja-person-choice[aria-selected="true"] {
+        animation: ja-neon-border-pulse 3.8s ease-in-out infinite;
+    }
+}
+
+[data-theme="light"] .ja-name,
+[data-theme="light"] .ja-button > span,
+[data-theme="light"] .ja-choice-arrow,
+[data-theme="light"] .ja-interest-list i,
+[data-theme="light"] .ja-snapshot-label > span,
+[data-theme="light"] .ja-future-arrow,
+[data-theme="light"] .ja-github span[aria-hidden="true"],
+[data-theme="light"] .ja-instagram span[aria-hidden="true"],
+[data-theme="light"] .ja-text-link span[aria-hidden="true"] {
+    text-shadow:
+        0 0 3px currentColor,
+        0 0 8px rgba(var(--ja-light-rgb), 0.5);
+}
+
+[data-theme="light"] .ja-name {
+    filter: drop-shadow(0 0 8px rgba(var(--ja-light-rgb), 0.4));
+}
+
+:root[data-effects="off"] .ja-name,
+:root[data-effects="off"] .ja-button > span,
+:root[data-effects="off"] .ja-choice-arrow,
+:root[data-effects="off"] .ja-interest-list i,
+:root[data-effects="off"] .ja-snapshot-label > span,
+:root[data-effects="off"] .ja-future-arrow,
+:root[data-effects="off"] .ja-github,
+:root[data-effects="off"] .ja-instagram,
+:root[data-effects="off"] .ja-button,
+:root[data-effects="off"] .ja-person-choice[aria-selected="true"] {
+    animation: none !important;
+}
+
+/* ===== Arrow icon normalization ===== */
+.ja-arrow-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+    font-size: 1em;
+}
 </style>
 </head>
 <body>
@@ -4034,30 +4436,30 @@
 <path d="M12 .75a11.25 11.25 0 0 0-3.56 21.92c.56.1.77-.24.77-.54v-2.1c-3.14.68-3.8-1.33-3.8-1.33-.51-1.3-1.25-1.65-1.25-1.65-1.02-.7.08-.68.08-.68 1.13.08 1.72 1.16 1.72 1.16 1 1.71 2.62 1.22 3.26.94.1-.73.39-1.22.71-1.5-2.51-.29-5.15-1.26-5.15-5.58 0-1.23.44-2.23 1.16-3.02-.12-.29-.5-1.43.11-2.98 0 0 .94-.3 3.1 1.15a10.76 10.76 0 0 1 5.64 0c2.16-1.46 3.1-1.15 3.1-1.15.61 1.55.23 2.69.11 2.98.72.79 1.16 1.79 1.16 3.02 0 4.33-2.64 5.29-5.17 5.57.4.35.76 1.04.76 2.1v3.07c0 .3.21.65.78.54A11.25 11.25 0 0 0 12 .75Z">
 </path>
 </svg>
-<span>Mi GitHub</span><span aria-hidden="true">↗</span>
-</a><a aria-label="Instagram de Ángel Escamilla (abre en otra pestaña)" class="ja-instagram" href="https://www.instagram.com/angellxrd.e/" rel="noopener noreferrer" target="_blank">
+<span>Mi GitHub</span><span aria-hidden="true"><i class="bi bi-arrow-up-right ja-arrow-icon"></i></span>
+</a><a aria-label="Instagram de Ángel Escamilla (abre en otra pestaña)" class="ja-instagram" href="https://www.instagram.com/anellxrd.e?stkn=MTV6bGQ3NDQxejk4ZQ==" rel="noopener noreferrer" target="_blank">
 <svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24">
 <rect height="18" rx="5" width="18" x="3" y="3"></rect>
 <circle cx="12" cy="12" r="4"></circle>
 <circle cx="17.3" cy="6.7" fill="currentColor" r="1" stroke="none"></circle>
 </svg>
-<span>Mi Instagram</span><span aria-hidden="true">↗</span>
-</a><a class="ja-text-link" href="#proyectos">Mis proyectos <span aria-hidden="true">↘</span></a></div>
+<span>Mi Instagram</span><span aria-hidden="true"><i class="bi bi-arrow-up-right ja-arrow-icon"></i></span>
+</a><a class="ja-text-link" href="#proyectos">Mis proyectos <span aria-hidden="true"><i class="bi bi-arrow-down-right ja-arrow-icon"></i></span></a></div>
 </div>
 <div aria-label="Fotografías de Ángel" class="ja-hero-photos">
-<a aria-label="Ampliar retrato de Ángel Escamilla" class="ja-snapshot" data-photo="0" href="Angel.webp">
-<img alt="Ángel Escamilla" decoding="async" fetchpriority="high" height="1484" src="Angel.webp" width="1060"/>
-<span class="ja-snapshot-label">ÁNGEL ESCAMILLA <span aria-hidden="true">↗</span></span>
+<a aria-label="Ampliar retrato de Ángel Escamilla" class="ja-snapshot" data-photo="0" href="/images/Angel.webp">
+<img alt="Ángel Escamilla" decoding="async" fetchpriority="high" height="1484" src="/images/Angel.webp" width="1060"/>
+<span class="ja-snapshot-label">ÁNGEL ESCAMILLA <span aria-hidden="true"><i class="bi bi-arrow-up-right ja-arrow-icon"></i></span></span>
 </a>
-<a aria-label="Ampliar foto de Ángel con el vehículo Photonix 7" class="ja-snapshot ja-snapshot--vehicle" data-photo="1" href="Angel.Vehiculo.jpeg">
-<img alt="Ángel al volante del vehículo de Photonix 7" decoding="async" height="1440" src="Angel.Vehiculo.jpeg" width="1080"/>
-<span class="ja-snapshot-label">PHOTONIX 7 <span aria-hidden="true">↗</span></span>
+<a aria-label="Ampliar foto de Ángel con el vehículo Photonix 7" class="ja-snapshot ja-snapshot--vehicle" data-photo="1" href="/images/Angel.Vehiculo.jpeg">
+<img alt="Ángel al volante del vehículo de Photonix 7" decoding="async" height="1440" src="/images/Angel.Vehiculo.jpeg" width="1080"/>
+<span class="ja-snapshot-label">PHOTONIX 7 <span aria-hidden="true"><i class="bi bi-arrow-up-right ja-arrow-icon"></i></span></span>
 </a>
-<a aria-label="Ampliar foto de Ángel en su motocicleta" class="ja-snapshot ja-snapshot--moto" data-photo="2" href="moto_angel.jpeg">
-<img alt="Ángel en su motocicleta" decoding="async" height="1440" src="moto_angel.jpeg" width="1080"/>
-<span class="ja-snapshot-label">RODADA <span aria-hidden="true">↗</span></span>
+<a aria-label="Ampliar foto de Ángel en su motocicleta" class="ja-snapshot ja-snapshot--moto" data-photo="2" href="/images/moto_angel.jpeg">
+<img alt="Ángel en su motocicleta" decoding="async" height="1440" src="/images/moto_angel.jpeg" width="1080"/>
+<span class="ja-snapshot-label">RODADA <span aria-hidden="true"><i class="bi bi-arrow-up-right ja-arrow-icon"></i></span></span>
 </a>
-<p class="ja-preview-hint">TRES MOMENTOS. LA MISMA PASIÓN. ↗</p>
+<p class="ja-preview-hint">TRES MOMENTOS. LA MISMA PASIÓN. <i class="bi bi-arrow-up-right ja-arrow-icon"></i></p>
 </div>
 <div aria-hidden="true" class="ja-hero-waiting"><span>j.</span>
 <p>Una historia por descubrir.</p>
@@ -4065,8 +4467,8 @@
 </div>
 <div aria-label="Elige un perfil" class="ja-profile-switch">
 <a class="ja-person-choice" data-person="angel" href="#angel" id="tabAngel"><span class="ja-choice-top"><span>01 / ÁNGEL</span><span class="ja-choice-state">Explorar
-                            perfil</span></span><strong>Ángel<span>.</span></strong><span class="ja-choice-bottom"><span>Mecatrónica, ideas y proyectos.</span><span aria-hidden="true" class="ja-choice-arrow">↗</span></span></a>
-<a class="ja-person-choice" data-person="juanjo" href="#juanjo" id="tabJuanjo"><span class="ja-choice-top"><span>02 / JUANJO</span><span class="ja-choice-state">Próximamente</span></span><strong>Juanjo<span>.</span></strong><span class="ja-choice-bottom"><span>Su historia, en su propio espacio.</span><span aria-hidden="true" class="ja-choice-arrow">↗</span></span></a>
+                            perfil</span></span><strong>Ángel<span>.</span></strong><span class="ja-choice-bottom"><span>Mecatrónica, ideas y proyectos.</span><span aria-hidden="true" class="ja-choice-arrow"><i class="bi bi-arrow-up-right ja-arrow-icon"></i></span></span></a>
+<a class="ja-person-choice" data-person="juanjo" href="#juanjo" id="tabJuanjo"><span class="ja-choice-top"><span>02 / JUANJO</span><span class="ja-choice-state">Próximamente</span></span><strong>Juanjo<span>.</span></strong><span class="ja-choice-bottom"><span>Su historia, en su propio espacio.</span><span aria-hidden="true" class="ja-choice-arrow"><i class="bi bi-arrow-up-right ja-arrow-icon"></i></span></span></a>
 </div>
 </section>
 <div aria-labelledby="tabAngel" class="ja-profile-page" id="profile-angel" tabindex="-1">
@@ -4080,7 +4482,7 @@
 <div class="ja-profile-grid">
 <article aria-labelledby="angelTitle" class="ja-profile" data-reveal="" id="angel">
 <div class="ja-photo-panel">
-<a aria-label="Ampliar retrato de Ángel Escamilla" class="ja-photo-link" data-photo="0" href="Angel.webp"><img alt="Ángel Jesús Escamilla Rodríguez" class="ja-portrait" decoding="async" height="1484" loading="eager" src="Angel.webp" width="1060"/></a>
+<a aria-label="Ampliar retrato de Ángel Escamilla" class="ja-photo-link" data-photo="0" href="/images/Angel.webp"><img alt="Ángel Jesús Escamilla Rodríguez" class="ja-portrait" decoding="async" height="1484" loading="eager" src="/images/Angel.webp" width="1060"/></a>
 <span aria-hidden="true" class="ja-photo-index">A / 01</span><span class="ja-photo-caption">Pénjamo, Guanajuato, México</span>
 <div class="ja-photo-label"><span>Ángel Escamilla</span><strong>Ideas, curiosidad y
                                     mecatrónica.</strong></div>
@@ -4106,14 +4508,14 @@
                                 resultados.
                             </p>
 <div class="ja-education">
-<span aria-hidden="true" class="ja-mini-icon">↗</span>
+<span aria-hidden="true" class="ja-mini-icon"><i class="bi bi-arrow-up-right ja-arrow-icon"></i></span>
 <div>
 <h4>Ingeniería en Mecatrónica</h4>
 <p>Estudiante</p>
 </div>
 </div>
 <div class="ja-education">
-<span aria-hidden="true" class="ja-mini-icon">⌘</span>
+<span aria-hidden="true" class="ja-mini-icon"><i class="bi bi-cpu ja-arrow-icon"></i></span>
 <div>
 <h4>
                                         Soporte y Mantenimiento<br/>de
@@ -4123,19 +4525,19 @@
 </div>
 </div>
 <div class="ja-profile-actions"><a class="ja-text-link" href="#proyectos">Lo que estoy construyendo
-                                <span aria-hidden="true">↗</span></a><a aria-label="GitHub de Ángel Escamilla (abre en otra pestaña)" class="ja-github" href="https://github.com/Angelescamilla26" rel="noopener noreferrer" target="_blank">
+                                <span aria-hidden="true"><i class="bi bi-arrow-up-right ja-arrow-icon"></i></span></a><a aria-label="GitHub de Ángel Escamilla (abre en otra pestaña)" class="ja-github" href="https://github.com/Angelescamilla26" rel="noopener noreferrer" target="_blank">
 <svg aria-hidden="true" fill="currentColor" viewbox="0 0 24 24">
 <path d="M12 .75a11.25 11.25 0 0 0-3.56 21.92c.56.1.77-.24.77-.54v-2.1c-3.14.68-3.8-1.33-3.8-1.33-.51-1.3-1.25-1.65-1.25-1.65-1.02-.7.08-.68.08-.68 1.13.08 1.72 1.16 1.72 1.16 1 1.71 2.62 1.22 3.26.94.1-.73.39-1.22.71-1.5-2.51-.29-5.15-1.26-5.15-5.58 0-1.23.44-2.23 1.16-3.02-.12-.29-.5-1.43.11-2.98 0 0 .94-.3 3.1 1.15a10.76 10.76 0 0 1 5.64 0c2.16-1.46 3.1-1.15 3.1-1.15.61 1.55.23 2.69.11 2.98.72.79 1.16 1.79 1.16 3.02 0 4.33-2.64 5.29-5.17 5.57.4.35.76 1.04.76 2.1v3.07c0 .3.21.65.78.54A11.25 11.25 0 0 0 12 .75Z">
 </path>
 </svg>
-<span>Mi GitHub</span><span aria-hidden="true">↗</span>
+<span>Mi GitHub</span><span aria-hidden="true"><i class="bi bi-arrow-up-right ja-arrow-icon"></i></span>
 </a><a aria-label="Instagram de Ángel Escamilla (abre en otra pestaña)" class="ja-instagram" href="https://www.instagram.com/anellxrd.e?stkn=MTV6bGQ3NDQxejk4ZQ==" rel="noopener noreferrer" target="_blank">
 <svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24">
 <rect height="18" rx="5" width="18" x="3" y="3"></rect>
 <circle cx="12" cy="12" r="4"></circle>
 <circle cx="17.3" cy="6.7" fill="currentColor" r="1" stroke="none"></circle>
 </svg>
-<span>Mi Instagram</span><span aria-hidden="true">↗</span>
+<span>Mi Instagram</span><span aria-hidden="true"><i class="bi bi-arrow-up-right ja-arrow-icon"></i></span>
 </a></div>
 <svg aria-hidden="true" class="ja-secret-sign" fill="none" focusable="false" viewbox="0 0 96 96">
 <path d="M22 88C24 71 29 60 41 51C30 51 23 58 20 68C17 47 25 28 43 21L46 7L53 23L61 13L59 31C65 35 67 42 69 47L84 58C90 63 89 68 84 72L80 75L65 69L58 58C57 72 63 81 72 88Z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.6"></path>
@@ -4174,12 +4576,12 @@
                         </p>
 </article>
 <div class="ja-interest-list" data-reveal="">
-<span>01 <strong>Robótica</strong><i aria-hidden="true">↗</i></span><span>02
-                            <strong>Electrónica</strong><i aria-hidden="true">↗</i></span><span>03
-                            <strong>Programación</strong><i aria-hidden="true">↗</i></span><span>04
-                            <strong>Automatización</strong><i aria-hidden="true">↗</i></span><span>05
-                            <strong>Inteligencia artificial</strong><i aria-hidden="true">↗</i></span><span>06
-                            <strong>Desarrollo web</strong><i aria-hidden="true">↗</i></span>
+<span>01 <strong>Robótica</strong><i aria-hidden="true"><i class="bi bi-arrow-up-right ja-arrow-icon"></i></i></span><span>02
+                            <strong>Electrónica</strong><i aria-hidden="true"><i class="bi bi-arrow-up-right ja-arrow-icon"></i></i></span><span>03
+                            <strong>Programación</strong><i aria-hidden="true"><i class="bi bi-arrow-up-right ja-arrow-icon"></i></i></span><span>04
+                            <strong>Automatización</strong><i aria-hidden="true"><i class="bi bi-arrow-up-right ja-arrow-icon"></i></i></span><span>05
+                            <strong>Inteligencia artificial</strong><i aria-hidden="true"><i class="bi bi-arrow-up-right ja-arrow-icon"></i></i></span><span>06
+                            <strong>Desarrollo web</strong><i aria-hidden="true"><i class="bi bi-arrow-up-right ja-arrow-icon"></i></i></span>
 </div>
 </div>
 <ul aria-label="Más intereses de Ángel" class="ja-tags" data-reveal="">
@@ -4229,7 +4631,7 @@
 </p>
 </div>
 <div>
-<span aria-hidden="true">↗</span>
+<span aria-hidden="true"><i class="bi bi-arrow-up-right ja-arrow-icon"></i></span>
 <p>
                                     Reconocimientos en
                                     <strong>Mini Sumo RC y F1 Racing.</strong>
@@ -4254,12 +4656,12 @@
 </div>
 <article class="ja-project ja-project--photonix" data-reveal="">
 <figure class="ja-vehicle-photo">
-<a aria-label="Ampliar foto de Ángel con Photonix 7" class="ja-photo-link" data-photo="1" href="Angel.Vehiculo.jpeg"><img alt="Ángel con casco, sentado en el vehículo de Photonix 7" decoding="async" height="1440" loading="lazy" src="Angel.Vehiculo.jpeg" width="1080"/></a>
+<a aria-label="Ampliar foto de Ángel con Photonix 7" class="ja-photo-link" data-photo="1" href="/images/Angel.Vehiculo.jpeg"><img alt="Ángel con casco, sentado en el vehículo de Photonix 7" decoding="async" height="1440" loading="lazy" src="/images/Angel.Vehiculo.jpeg" width="1080"/></a>
 <figcaption>
 <span>PHOTONIX 7 / EN PRIMERA PERSONA</span><strong>De las ideas<br/>al vehículo.</strong>
 </figcaption>
-<a aria-label="Ampliar foto completa de Ángel con el vehículo" class="ja-photo-expand" data-photo="1" href="Angel.Vehiculo.jpeg">Ver foto completa
-                            <span aria-hidden="true">↗</span></a>
+<a aria-label="Ampliar foto completa de Ángel con el vehículo" class="ja-photo-expand" data-photo="1" href="/images/Angel.Vehiculo.jpeg">Ver foto completa
+                            <span aria-hidden="true"><i class="bi bi-arrow-up-right ja-arrow-icon"></i></span></a>
 </figure>
 <div class="ja-project-copy">
 <span class="ja-project-type">MOVILIDAD ELÉCTRICA</span>
@@ -4296,7 +4698,7 @@
 <circle cx="310" cy="74" fill="currentColor" r="5"></circle>
 </svg>
 <div class="ja-art-foot">
-<span>Ideas con impacto local</span><span aria-hidden="true">↗</span>
+<span>Ideas con impacto local</span><span aria-hidden="true"><i class="bi bi-arrow-up-right ja-arrow-icon"></i></span>
 </div>
 </div>
 <div class="ja-project-copy">
@@ -4338,14 +4740,42 @@
 <div class="ja-hobby-grid">
 <article class="ja-football" data-reveal="">
 <div aria-hidden="true" class="ja-pitch">
-<div></div>
-<span>01</span>
+<span class="ja-pitch-stripes"></span>
+<div class="ja-pitch-lines">
+<span class="ja-pitch-halfway"></span>
+<span class="ja-pitch-center"></span>
+<span class="ja-pitch-box ja-pitch-box--left"></span>
+<span class="ja-pitch-box ja-pitch-box--right"></span>
+<span class="ja-pitch-goal ja-pitch-goal--left"></span>
+<span class="ja-pitch-goal ja-pitch-goal--right"></span>
+</div>
+<span class="ja-pitch-number">01</span>
+<span class="ja-pitch-ball"></span>
 </div>
 <p class="ja-kicker">En la cancha</p>
 <h3>Bajo los<br/>tres palos.</h3>
 <p>Me gusta mucho el fútbol y soy portero.</p>
-<span class="ja-fan"><i aria-hidden="true"></i> Aficionado de
-                            Chivas</span>
+<span class="ja-fan">
+<svg aria-hidden="true" class="ja-fan-crest" viewBox="0 0 32 32">
+<defs>
+<clipPath id="jaChivasShield">
+<path d="M16 2L28 7v10c0 6.5-5.2 11.6-12 13C9.2 28.6 4 23.5 4 17V7L16 2z"/>
+</clipPath>
+</defs>
+<g clip-path="url(#jaChivasShield)">
+<rect width="32" height="32" fill="#f5f5f5"/>
+<rect x="3" width="6" height="32" fill="#d42e2e"/>
+<rect x="15" width="6" height="32" fill="#d42e2e"/>
+<rect x="27" width="6" height="32" fill="#d42e2e"/>
+</g>
+<path d="M16 2L28 7v10c0 6.5-5.2 11.6-12 13C9.2 28.6 4 23.5 4 17V7L16 2z" fill="none" stroke="#4dabff" stroke-linejoin="round" stroke-width="1.3"/>
+<circle cx="16" cy="13" fill="#4dabff" r="1.4"/>
+</svg>
+<span class="ja-fan-text">
+<strong>Aficionado de Chivas</strong>
+<small>ROJIBLANCO · 1906</small>
+</span>
+</span>
 </article>
 <article class="ja-drawing" data-reveal="">
 <svg aria-hidden="true" fill="none" viewbox="0 0 330 170">
@@ -4383,7 +4813,7 @@
 <div aria-label="Programación, electrónica, robótica, automatización e inteligencia artificial" class="ja-equation">
 <span>Programación</span><b aria-hidden="true">+</b><span>Electrónica</span><b aria-hidden="true">+</b><span>Robótica</span><b aria-hidden="true">+</b><span>Automatización</span><b aria-hidden="true">+</b><span>IA</span>
 </div>
-<span aria-hidden="true" class="ja-future-arrow">↗</span>
+<span aria-hidden="true" class="ja-future-arrow"><i class="bi bi-arrow-up-right ja-arrow-icon"></i></span>
 </section>
 </div>
 <div aria-labelledby="tabJuanjo" class="ja-profile-page" id="profile-juanjo" tabindex="-1">
@@ -4396,7 +4826,7 @@
                         historia.
                     </p>
 <a class="ja-button" href="#angel">Conocer a Ángel
-                        <span aria-hidden="true">↗</span></a>
+                        <span aria-hidden="true"><i class="bi bi-arrow-up-right ja-arrow-icon"></i></span></a>
 </div>
 </section>
 </div>
@@ -4404,16 +4834,16 @@
 <footer class="ja-footer ja-container">
 <a aria-label="Volver al inicio" class="ja-monogram" href="#inicio">j<span>/</span>a<span class="ja-dot">.</span></a>
 <p>Juanjo &amp; Ángel<span>Este espacio sigue creciendo.</span></p>
-<a class="ja-text-link" href="#inicio">Volver arriba ↑</a>
+<a class="ja-text-link" href="#inicio">Volver arriba <i class="bi bi-arrow-up ja-arrow-icon"></i></a>
 </footer>
 <dialog aria-labelledby="jaPhotoTitle" class="ja-lightbox" id="jaPhotoDialog">
 <div class="ja-lightbox-top">
-<h2 id="jaPhotoTitle">De cerca · Las fotos de Ángel</h2><button aria-label="Cerrar fotografía" autofocus="" id="jaPhotoClose" type="button">×</button>
+<h2 id="jaPhotoTitle">De cerca · Las fotos de Ángel</h2><button aria-label="Cerrar fotografía" autofocus="" id="jaPhotoClose" type="button"><i class="bi bi-x-lg ja-arrow-icon"></i></button>
 </div>
-<img alt="Retrato de Ángel Escamilla" height="1484" id="jaPhotoImage" src="Angel.webp" width="1060"/>
-<div class="ja-lightbox-bottom"><button aria-label="Fotografía anterior" id="jaPhotoPrevious" type="button">←</button>
+<img alt="Retrato de Ángel Escamilla" height="1484" id="jaPhotoImage" src="/images/Angel.webp" width="1060"/>
+<div class="ja-lightbox-bottom"><button aria-label="Fotografía anterior" id="jaPhotoPrevious" type="button"><i class="bi bi-arrow-left ja-arrow-icon"></i></button>
 <p aria-live="polite"><span id="jaPhotoCaption">Ángel Escamilla</span><br/><small id="jaPhotoCount">1 /
-                    3</small></p><button aria-label="Siguiente fotografía" id="jaPhotoNext" type="button">→</button>
+                    3</small></p><button aria-label="Siguiente fotografía" id="jaPhotoNext" type="button"><i class="bi bi-arrow-right ja-arrow-icon"></i></button>
 </div>
 </dialog>
 <script id="ja-behavior">
@@ -4671,9 +5101,9 @@
             const photoCount = document.getElementById('jaPhotoCount');
             const photoClose = document.getElementById('jaPhotoClose');
             const photos = [
-                { src: 'Angel.webp', alt: 'Retrato de Ángel Jesús Escamilla Rodríguez', caption: 'Ángel Escamilla' },
-                { src: 'Angel.Vehiculo.jpeg', alt: 'Ángel con casco, sentado en el vehículo de Photonix 7', caption: 'Ángel · Photonix 7' },
-                { src: 'moto_angel.jpeg', alt: 'Ángel en su motocicleta', caption: 'Ángel · Motocicleta' }
+                { src: '/images/Angel.webp', alt: 'Retrato de Ángel Jesús Escamilla Rodríguez', caption: 'Ángel Escamilla' },
+                { src: '/images/Angel.Vehiculo.jpeg', alt: 'Ángel con casco, sentado en el vehículo de Photonix 7', caption: 'Ángel · Photonix 7' },
+                { src: '/images/moto_angel.jpeg', alt: 'Ángel en su motocicleta', caption: 'Ángel · Motocicleta' }
             ];
             let photoIndex = 0;
             let photoTrigger;
