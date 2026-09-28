@@ -2924,6 +2924,36 @@
             box-shadow: 0 0 0 4px rgba(var(--ja-light-rgb), .12), 0 0 45px rgba(var(--ja-light-rgb), .3);
         }
 
+        .ja-instagram {
+            display: inline-flex;
+            align-items: center;
+            gap: 13px;
+            min-height: 48px;
+            padding: 13px 19px;
+            border: 1px solid var(--ja-accent);
+            border-radius: 12px;
+            background: transparent;
+            color: var(--ja-accent);
+            font-size: 12px;
+            font-weight: 650;
+            position: relative;
+            overflow: hidden;
+            isolation: isolate;
+            transition: background-color .25s, color .25s, box-shadow .3s, border-color .3s;
+        }
+
+        .ja-instagram svg {
+            width: 21px;
+            height: 21px;
+            flex-shrink: 0;
+        }
+
+        .ja-instagram:hover {
+            background: var(--ja-accent);
+            color: var(--ja-accent-ink);
+            box-shadow: 0 0 0 4px rgba(var(--ja-light-rgb), .12), 0 0 45px rgba(var(--ja-light-rgb), .3);
+        }
+
         .ja-profile-copy>.ja-github {
             margin-top: 22px;
         }
@@ -2932,9 +2962,9 @@
             position: relative;
             min-width: 0;
             display: grid;
-            grid-template-columns: .82fr 1fr;
+            grid-template-columns: 1fr 1fr 1fr;
             align-items: center;
-            gap: 18px;
+            gap: 14px;
             padding: 28px 3px;
             isolation: isolate;
         }
@@ -2974,6 +3004,10 @@
 
         .ja-snapshot--vehicle {
             transform: rotate(5deg) translateY(15px);
+        }
+
+        .ja-snapshot--moto {
+            transform: rotate(-3deg) translateY(-10px);
         }
 
         .ja-snapshot img {
@@ -3402,7 +3436,7 @@
             .ja-hero-photos {
                 width: min(470px, 100%);
                 margin-inline: auto;
-                gap: 16px;
+                gap: 12px;
                 padding: 24px 8px;
             }
 
@@ -3468,7 +3502,8 @@
                 margin: 14px 0;
             }
 
-            .ja-github {
+            .ja-github,
+            .ja-instagram {
                 padding: 12px 15px;
             }
 
@@ -3503,7 +3538,8 @@
                 display: none;
             }
 
-            .ja-github {
+            .ja-github,
+            .ja-instagram {
                 border-color: ButtonText;
             }
         }
@@ -3576,6 +3612,10 @@
 
         .ja-snapshot--vehicle {
             transform: perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) rotate(5deg) translateY(15px)
+        }
+
+        .ja-snapshot--moto {
+            transform: perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) rotate(-3deg) translateY(-10px)
         }
 
         
@@ -3995,18 +4035,29 @@
 </path>
 </svg>
 <span>Mi GitHub</span><span aria-hidden="true">↗</span>
+</a><a aria-label="Instagram de Ángel Escamilla (abre en otra pestaña)" class="ja-instagram" href="https://www.instagram.com/anellxrd.e?stkn=MTV6bGQ3NDQxejk4ZQ==" rel="noopener noreferrer" target="_blank">
+<svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24">
+<rect height="18" rx="5" width="18" x="3" y="3"></rect>
+<circle cx="12" cy="12" r="4"></circle>
+<circle cx="17.3" cy="6.7" fill="currentColor" r="1" stroke="none"></circle>
+</svg>
+<span>Mi Instagram</span><span aria-hidden="true">↗</span>
 </a><a class="ja-text-link" href="#proyectos">Mis proyectos <span aria-hidden="true">↘</span></a></div>
 </div>
 <div aria-label="Fotografías de Ángel" class="ja-hero-photos">
-<a aria-label="Ampliar retrato de Ángel Escamilla" class="ja-snapshot" data-photo="0" href="/images/Angel.webp">
-<img alt="Ángel Escamilla" decoding="async" fetchpriority="high" height="1484" src="/images/Angel.webp" width="1060"/>
+<a aria-label="Ampliar retrato de Ángel Escamilla" class="ja-snapshot" data-photo="0" href="/Angel.webp">
+<img alt="Ángel Escamilla" decoding="async" fetchpriority="high" height="1484" src="/Angel.webp" width="1060"/>
 <span class="ja-snapshot-label">ÁNGEL ESCAMILLA <span aria-hidden="true">↗</span></span>
 </a>
-<a aria-label="Ampliar foto de Ángel con el vehículo Photonix 7" class="ja-snapshot ja-snapshot--vehicle" data-photo="1" href="/images/Angel.Vehiculo.jpeg">
-<img alt="Ángel al volante del vehículo de Photonix 7" decoding="async" height="1440" src="/images/Angel.Vehiculo.jpeg" width="1080"/>
+<a aria-label="Ampliar foto de Ángel con el vehículo Photonix 7" class="ja-snapshot ja-snapshot--vehicle" data-photo="1" href="/Angel.Vehiculo.jpeg">
+<img alt="Ángel al volante del vehículo de Photonix 7" decoding="async" height="1440" src="/Angel.Vehiculo.jpeg" width="1080"/>
 <span class="ja-snapshot-label">PHOTONIX 7 <span aria-hidden="true">↗</span></span>
 </a>
-<p class="ja-preview-hint">DOS MOMENTOS. LA MISMA PASIÓN. ↗</p>
+<a aria-label="Ampliar foto de Ángel en su motocicleta" class="ja-snapshot ja-snapshot--moto" data-photo="2" href="/moto_angel.jpeg">
+<img alt="Ángel en su motocicleta" decoding="async" height="1440" src="/moto_angel.jpeg" width="1080"/>
+<span class="ja-snapshot-label">RODADA <span aria-hidden="true">↗</span></span>
+</a>
+<p class="ja-preview-hint">TRES MOMENTOS. LA MISMA PASIÓN. ↗</p>
 </div>
 <div aria-hidden="true" class="ja-hero-waiting"><span>j.</span>
 <p>Una historia por descubrir.</p>
@@ -4029,7 +4080,7 @@
 <div class="ja-profile-grid">
 <article aria-labelledby="angelTitle" class="ja-profile" data-reveal="" id="angel">
 <div class="ja-photo-panel">
-<a aria-label="Ampliar retrato de Ángel Escamilla" class="ja-photo-link" data-photo="0" href="/images/Angel.webp"><img alt="Ángel Jesús Escamilla Rodríguez" class="ja-portrait" decoding="async" height="1484" loading="eager" src="/images/Angel.webp" width="1060"/></a>
+<a aria-label="Ampliar retrato de Ángel Escamilla" class="ja-photo-link" data-photo="0" href="/Angel.webp"><img alt="Ángel Jesús Escamilla Rodríguez" class="ja-portrait" decoding="async" height="1484" loading="eager" src="/Angel.webp" width="1060"/></a>
 <span aria-hidden="true" class="ja-photo-index">A / 01</span><span class="ja-photo-caption">Pénjamo, Guanajuato, México</span>
 <div class="ja-photo-label"><span>Ángel Escamilla</span><strong>Ideas, curiosidad y
                                     mecatrónica.</strong></div>
@@ -4078,6 +4129,13 @@
 </path>
 </svg>
 <span>Mi GitHub</span><span aria-hidden="true">↗</span>
+</a><a aria-label="Instagram de Ángel Escamilla (abre en otra pestaña)" class="ja-instagram" href="https://www.instagram.com/anellxrd.e?stkn=MTV6bGQ3NDQxejk4ZQ==" rel="noopener noreferrer" target="_blank">
+<svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24">
+<rect height="18" rx="5" width="18" x="3" y="3"></rect>
+<circle cx="12" cy="12" r="4"></circle>
+<circle cx="17.3" cy="6.7" fill="currentColor" r="1" stroke="none"></circle>
+</svg>
+<span>Mi Instagram</span><span aria-hidden="true">↗</span>
 </a></div>
 <svg aria-hidden="true" class="ja-secret-sign" fill="none" focusable="false" viewbox="0 0 96 96">
 <path d="M22 88C24 71 29 60 41 51C30 51 23 58 20 68C17 47 25 28 43 21L46 7L53 23L61 13L59 31C65 35 67 42 69 47L84 58C90 63 89 68 84 72L80 75L65 69L58 58C57 72 63 81 72 88Z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.6"></path>
@@ -4131,6 +4189,7 @@
 <li>Sistemas autónomos</li>
 <li>Fútbol</li>
 <li>Dibujo</li>
+<li>Motocicletas</li>
 </ul>
 </section>
 <section aria-labelledby="achievementsTitle" class="ja-achievements" id="logros">
@@ -4195,11 +4254,11 @@
 </div>
 <article class="ja-project ja-project--photonix" data-reveal="">
 <figure class="ja-vehicle-photo">
-<a aria-label="Ampliar foto de Ángel con Photonix 7" class="ja-photo-link" data-photo="1" href="/images/Angel.Vehiculo.jpeg"><img alt="Ángel con casco, sentado en el vehículo de Photonix 7" decoding="async" height="1440" loading="lazy" src="/images/Angel.Vehiculo.jpeg" width="1080"/></a>
+<a aria-label="Ampliar foto de Ángel con Photonix 7" class="ja-photo-link" data-photo="1" href="/Angel.Vehiculo.jpeg"><img alt="Ángel con casco, sentado en el vehículo de Photonix 7" decoding="async" height="1440" loading="lazy" src="/Angel.Vehiculo.jpeg" width="1080"/></a>
 <figcaption>
 <span>PHOTONIX 7 / EN PRIMERA PERSONA</span><strong>De las ideas<br/>al vehículo.</strong>
 </figcaption>
-<a aria-label="Ampliar foto completa de Ángel con el vehículo" class="ja-photo-expand" data-photo="1" href="/images/Angel.Vehiculo.jpeg">Ver foto completa
+<a aria-label="Ampliar foto completa de Ángel con el vehículo" class="ja-photo-expand" data-photo="1" href="/Angel.Vehiculo.jpeg">Ver foto completa
                             <span aria-hidden="true">↗</span></a>
 </figure>
 <div class="ja-project-copy">
@@ -4351,10 +4410,10 @@
 <div class="ja-lightbox-top">
 <h2 id="jaPhotoTitle">De cerca · Las fotos de Ángel</h2><button aria-label="Cerrar fotografía" autofocus="" id="jaPhotoClose" type="button">×</button>
 </div>
-<img alt="Retrato de Ángel Escamilla" height="1484" id="jaPhotoImage" src="/images/Angel.webp" width="1060"/>
+<img alt="Retrato de Ángel Escamilla" height="1484" id="jaPhotoImage" src="/Angel.webp" width="1060"/>
 <div class="ja-lightbox-bottom"><button aria-label="Fotografía anterior" id="jaPhotoPrevious" type="button">←</button>
 <p aria-live="polite"><span id="jaPhotoCaption">Ángel Escamilla</span><br/><small id="jaPhotoCount">1 /
-                    2</small></p><button aria-label="Siguiente fotografía" id="jaPhotoNext" type="button">→</button>
+                    3</small></p><button aria-label="Siguiente fotografía" id="jaPhotoNext" type="button">→</button>
 </div>
 </dialog>
 <script id="ja-behavior">
@@ -4612,8 +4671,9 @@
             const photoCount = document.getElementById('jaPhotoCount');
             const photoClose = document.getElementById('jaPhotoClose');
             const photos = [
-                { src: '/images/Angel.webp', alt: 'Retrato de Ángel Jesús Escamilla Rodríguez', caption: 'Ángel Escamilla' },
-                { src: '/images/Angel.Vehiculo.jpeg', alt: 'Ángel con casco, sentado en el vehículo de Photonix 7', caption: 'Ángel · Photonix 7' }
+                { src: '/Angel.webp', alt: 'Retrato de Ángel Jesús Escamilla Rodríguez', caption: 'Ángel Escamilla' },
+                { src: '/Angel.Vehiculo.jpeg', alt: 'Ángel con casco, sentado en el vehículo de Photonix 7', caption: 'Ángel · Photonix 7' },
+                { src: '/moto_angel.jpeg', alt: 'Ángel en su motocicleta', caption: 'Ángel · Motocicleta' }
             ];
             let photoIndex = 0;
             let photoTrigger;
